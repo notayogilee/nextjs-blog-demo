@@ -4,21 +4,44 @@ import CardItem from 'components/CardItem'
 import CardListItem from 'components/CardListItem'
 import { Row, Col } from 'react-bootstrap'
 
-const Home = () => {
+import { getAllBlogs } from 'lib/api'
+
+const Home = ({ blogs }) => {
+  // debugger
   return (
     <PageLayout>
       <AuthorIntro />
       <hr />
+
       <Row className="mb-5">
-        <Col md="10">
+        {/* <Col md="10">
           <CardListItem />
-        </Col>
-        <Col md="4">
-          <CardItem />
-        </Col>
+        </Col> */}
+        {blogs && blogs.map((blog) => (
+
+          <Col key={blog.slug} md="4">
+            <CardItem
+              author={blog.author}
+              title={blog.title}
+              subtitle={blog.subtitle}
+              date={blog.date}
+              image={blog.coverImage}
+            />
+          </Col>
+        ))}
       </Row>
     </PageLayout>
   )
 }
 
 export default Home
+
+export async function getStaticProps() {
+
+  const blogs = await getAllBlogs()
+  return {
+    props: {
+      blogs
+    }
+  }
+}
