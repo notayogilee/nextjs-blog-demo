@@ -1,5 +1,6 @@
 
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'highlight.js/styles/school-book.css'
 import 'styles/index.scss'
 
 function MyApp({ Component, pageProps }) {
